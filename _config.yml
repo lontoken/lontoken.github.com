@@ -1,24 +1,22 @@
 markdown: rdiscount
 permalink: /:title.html
-url: http://blog.ixxoo.me
+url: http://lontoken.com/
 lsi: true
 pygments: true
 safe: true
 auto: true
 
 # presonal config
-title: likebeta's Blog
-feed: http://feed.ixxoo.me
+title: lontoken's Blog
+feed: http://lontoken.com/
 comments: disqus
 
 author:
-  name: likebeta
-  nickname: likebeta
-  email: ixxoo.me@gmail.com
-  gmail: ixxoo.me@gmail.com
-  qqmail: http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=GnZzcX94f257WmtrNHl1dw
-  qqlist: http://list.qq.com/cgi-bin/qf_invite?id=eff06957927177ae5d491bb3c18e4a3c5fc328c95b6ae04f
-  site: http://www.ixxoo.me
+  name: lontoken
+  nickname: lontoken
+  email: lontoken@gmail.com
+  gmail: lontoken@gmail.com
+  site: lontoken@gmail.com
 
 seo: 
   keyword: 
