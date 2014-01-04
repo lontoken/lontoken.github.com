@@ -1,8 +1,8 @@
 function DoubanApi() {
 	this.defaults = {
 		place:"douban",
-		user:"kingtouch",
-		api:"0b204112100ace0a2160c33630206a1e",
+		user:"lontoken",
+		api:"084feec275dceb3e18efcc476196c1ba",
 		book:[{status:"reading",maxnum:20},{status:"read",maxnum:100},{status:"wish",maxnum:100}],
 		bookreadingtitle:"在读...",
 		bookreadtitle:"读过...",
