@@ -13,7 +13,7 @@ photo: true
 </article>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		$.getJSON('http://api.flickr.com/services/rest/?method=flickr.people.getPhotos&api_key=8079916309bfb2fb4d93c9684b4709b9&user_id=96149834@N05&format=json&per_page=100&page=1&jsoncallback=?', 
+		$.getJSON('http://api.flickr.com/services/rest/?method=flickr.people.getPhotos&api_key=cf074a6dd0257d5f8ce2836a96cc8499&user_id=84546815@N08&format=json&per_page=100&page=1&jsoncallback=?', 
 		function(data) {
 			if (data.stat != 'ok') return;
 			if (data.photos.total <= 0) return;
