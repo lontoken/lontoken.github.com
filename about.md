@@ -10,7 +10,11 @@ about: true
 
 #### 技术
 
-Linux, C/C++, PHP, Javascript, Lua, Python
+C/C++, JAVA, Lua, HTML/CSS/Javascript
+
+#### 爱好
+
+摄影, 骑行, Coding
 
 #### 博客
 
@@ -19,8 +23,9 @@ Linux, C/C++, PHP, Javascript, Lua, Python
 #### 联系
 <lontoken@gmail.com>
 
-#### avater
+#### 链接
 
-
-[1]: https://github.com/lontoken
-
+1. [blog/cnblogs](http://www.cnblogs.com/lontoken)
+2. [douban](http://www.douban.com/people/lonthink)
+3. [code/github](http://github.com/lontoken)
+3. [friend/blog](http://ddrccw.github.io)

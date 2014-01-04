@@ -12,11 +12,6 @@ resume: true
 
 C/C++, JAVA, Lua, HTML/CSS/Javascript
 
-####Work
-
-1. ***2012.03 - 0000.00:*** working at [7k7k](http://www.7k7k.com "7k7k小游戏")
-2. ***2008.06 - 2012.06:*** study in [haust](http://www.haust.edu.cn "河南科技大学")
-
 ####Tools
 
 Ubuntu, Centos, Win7, Vim, Sublime Text, Git, Visual studio
