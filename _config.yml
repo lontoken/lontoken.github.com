@@ -1,6 +1,6 @@
 markdown: rdiscount
 permalink: /:title.html
-url: http://lontoken.com/
+url: http://lontoken.com
 lsi: true
 pygments: true
 safe: true
@@ -8,7 +8,7 @@ auto: true
 
 # presonal config
 title: lontoken's Blog
-feed: http://lontoken.com/
+feed: http://lontoken.com
 comments: disqus
 
 author:
