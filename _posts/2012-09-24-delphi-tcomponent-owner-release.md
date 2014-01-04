@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 文本文件编码模式识别
-tags: [文本文件,编码]
+title: Delphi中由TComponent.Owner引发的资源重复释放问题
+tags: [TComponent.Owner,资源重复释放]
 ---
 
 <p>案例情形：在通过控件的构造函数Create(AOwner: TComponent)创建对象a时传入Application，之后又自作多情的主动调用FreeAndNil释放此对象a，在程序退出时问题就会来了，由于Application会主动释放自己的Components内的元素，而我们自己再次调用FreeAndNil时就会出现对象的多次释放，导致程序无法正常退出！！！</p>
