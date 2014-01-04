@@ -278,7 +278,7 @@ luaL_setfuncs(L, base_funcs, 0)之后:
 lua_pushliteral(L, LUA_VERSION)之后:  
 <img src="{{site.url}}/assets/lua-stack-8.png" />
 
-lua_setfield(L, -2, "_VERSION")
+lua_setfield(L, -2, "_VERSION")  
 <img src="{{site.url}}/assets/lua-stack-9.png" />
 
 
