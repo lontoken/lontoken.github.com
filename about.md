@@ -25,7 +25,7 @@ C/C++, JAVA, Lua, HTML/CSS/Javascript
 
 #### 链接
 
-1. [blog/cnblogs](http://www.cnblogs.com/lontoken)
-2. [douban](http://www.douban.com/people/lonthink)
-3. [code/github](http://github.com/lontoken)
-3. [friend/blog](http://ddrccw.github.io)
+1. [blog/cnblogs: http://www.cnblogs.com/lontoken](http://www.cnblogs.com/lontoken)
+2. [douban: http://www.douban.com/people/lonthink](http://www.douban.com/people/lonthink)
+3. [code/github: http://github.com/lontoken](http://github.com/lontoken)
+4. [friend/blog: http://ddrccw.github.io](http://ddrccw.github.io)
