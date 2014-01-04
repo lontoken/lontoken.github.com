@@ -10,7 +10,7 @@ about: true
 
 #### 技术
 
-C/C++, JAVA, Lua, HTML/CSS/Javascript
+C/C++, JAVA, Lua, HTML/CSS/Javascript, Delphi, C#/ASP.NET
 
 #### 爱好
 
