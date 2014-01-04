@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: post
 title: lua的栈--源码分析
+tags: [lua,栈,源码]
 ---
 
 #lua的栈--源码分析
