@@ -83,7 +83,7 @@ static void stack_init (lua_State *L1, lua_State *L) {
 ```
 
 初始化之后,lua_State栈的情况:  
-
+<img src="{{site.url}}/assets/lua-stack-1.png" />
 
 lua供C使用的栈相关API是不检查数据栈越界的,因为通常编写C扩展都能把数据栈空间的使用控制在BASIC_STACK_SIZE以内,或是显式扩展.对每次数据栈访问都强制做越界检查是非常低效的.  
 数据栈不够用时,可以使用luaD_reallocstack\luaD_growstack函数扩展,每次至少分配比原来大一倍的空间.  
@@ -192,8 +192,10 @@ LUA_API void lua_createtable (lua_State *L, int narray, int nrec) {
 ```
 
 lua_pushinteger(L, 1)之后,栈的情况:  
+<img src="{{site.url}}/assets/lua-stack-2.png" />
 
 lua_newtable(L)之后,栈的情况:  
+<img src="{{site.url}}/assets/lua-stack-3.png" />
 
 出栈的函数或宏:  
 
@@ -262,17 +264,22 @@ LUAMOD_API int luaopen_base (lua_State *L) {
     
 luaopen_base函数设置全局注册表的"_G"字段,base_funcs指定的函数列表,"_VERSION"字段.  
 第一个lua_pushglobaltable(L)之后:  
+<img src="{{site.url}}/assets/lua-stack-4.png" />
 
 第二个lua_pushglobaltable(L)之后:  
+<img src="{{site.url}}/assets/lua-stack-5.png" />
 
 lua_setfield(L, -2, "_G")之后:  
+<img src="{{site.url}}/assets/lua-stack-6.png" />
 
 luaL_setfuncs(L, base_funcs, 0)之后:  
+<img src="{{site.url}}/assets/lua-stack-7.png" />
 
 lua_pushliteral(L, LUA_VERSION)之后:  
+<img src="{{site.url}}/assets/lua-stack-8.png" />
 
 lua_setfield(L, -2, "_VERSION")
-
+<img src="{{site.url}}/assets/lua-stack-9.png" />
 
 
 ##参考资源
