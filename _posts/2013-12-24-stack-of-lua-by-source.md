@@ -25,7 +25,7 @@ union Value {
 
 在lua_State中栈的保存如下:  
 
-```C++
+{% highlight cpp %}
 struct lua_State {  
     StkId top;          /* first free slot in the stack */
     StkId stack_last;   /* last free slot in the stack */  
@@ -34,34 +34,34 @@ struct lua_State {
     CallInfo base_ci;  /* CallInfo for first level (C calling Lua) */
     ...
 }  
-```
+{% endhighlight %}
 
 StkId的定义:  
 
-```C++
+{% highlight cpp %}
 typedef TValue *StkId;  
 typedef struct lua_TValue TValue;  
 struct lua_TValue {  
     TValuefields;  
 };  
-```
+{% endhighlight %}
 
-```C++
+{% highlight cpp %}
 #define TValuefields    Value value_; int tt_  
-```
+{% endhighlight %}
 
 在Windows VC下:  
 
-```C++
+{% highlight cpp %}
 #define TValuefields  \  
 union { struct { Value v__; int tt__; } i; double d__; } u  
-```
+{% endhighlight %}
 
 这里使用了繁杂的宏定义,TValuefields和numfield是为了应用一个被称为NaN Trick的技巧.  
 
 lua初始化堆栈:  
 
-```C++
+{% highlight cpp %}
 static void stack_init (lua_State *L1, lua_State *L) {
     int i; CallInfo *ci;
     /* initialize stack array */
@@ -80,7 +80,7 @@ static void stack_init (lua_State *L1, lua_State *L) {
     ci->top = L1->top + LUA_MINSTACK;
     L1->ci = ci;
 }
-```
+{% endhighlight %}
 
 初始化之后,lua_State栈的情况:  
 <img src="{{site.url}}/assets/lua-stack-1.png" />
@@ -88,7 +88,7 @@ static void stack_init (lua_State *L1, lua_State *L) {
 lua供C使用的栈相关API是不检查数据栈越界的,因为通常编写C扩展都能把数据栈空间的使用控制在BASIC_STACK_SIZE以内,或是显式扩展.对每次数据栈访问都强制做越界检查是非常低效的.  
 数据栈不够用时,可以使用luaD_reallocstack\luaD_growstack函数扩展,每次至少分配比原来大一倍的空间.  
 
-```C++
+{% highlight cpp %}
 /* some space for error handling */  
 #define ERRORSTACKSIZE  (LUAI_MAXSTACK + 200)  
 
@@ -122,11 +122,11 @@ void luaD_growstack (lua_State *L, int n) {
             luaD_reallocstack(L, newsize);  
     }  
 }  
-```
+{% endhighlight %}
 
 数据栈扩展的过程,伴随着数据拷贝,这些数据都是可能直接值复制的,所有不需要在扩展之后修正其中的指针.但有此外部对数据栈的引用需要修正为正确的新地址.这些需要修正的位置包括upvalue以及执行对数据栈的引用.此过程由correctstack函数实现.  
 
-```C++
+{% highlight cpp %}
 static void correctstack (lua_State *L, TValue *oldstack) {  
     CallInfo *ci;  
     GCObject *up;  
@@ -140,19 +140,19 @@ static void correctstack (lua_State *L, TValue *oldstack) {
         ci->u.l.base = (ci->u.l.base - oldstack) + L->stack;  
     }  
 }  
-```
+{% endhighlight %}
 
 ##栈的使用
 入栈的函数或宏:  
 
-```
+{% endhighlight %}
     lua_pushnil\lua_pushnumber\lua_pushinteger\lua_pushunsigned\lua_pushlstring\lua_pushstring\lua_pushvfstring\lua_pushfstring\lua_pushcclosure\lua_pushboolean\lua_pushlightuserdata\lua_pushthread\lua_newtable\lua_register\lua_pushcfunction;  
     lua_getglobal\lua_gettable\lua_getfield\lua_rawget\lua_rawgeti\lua_rawgetp\lua_createtable\lua_newuserdata\lua_getmetatable\lua_getuservalue  
-```
+{% endhighlight %}
 
 lua_pushnumber定义如下:  
 
-```C++
+{% highlight cpp %}
 LUA_API void lua_pushinteger (lua_State *L, lua_Integer n) {  
     lua_lock(L);  
     //VS下展开之后:TValue *io_=(L->top); ((io_)->u.d__)=(n); ((void)0);  
@@ -161,11 +161,11 @@ LUA_API void lua_pushinteger (lua_State *L, lua_Integer n) {
     api_incr_top(L);  
     lua_unlock(L);  
 }  
-```
+{% endhighlight %}
 
 lua_newtable的定义如下:  
 
-```C++
+{% highlight cpp %}
 #define lua_newtable(L)     lua_createtable(L, 0, 0)  
 LUA_API void lua_createtable (lua_State *L, int narray, int nrec) {     
     Table *t;   
@@ -181,15 +181,15 @@ LUA_API void lua_createtable (lua_State *L, int narray, int nrec) {
     luaH_resize(L, t, narray, nrec);  
     lua_unlock(L);  
 }  
-```
+{% endhighlight %}
 
 示例代码如下:  
 
-```lua
+{% endhighlight %}lua
     lua_State* L = luaL_newstate();
     lua_pushnumber(L, 1);
     lua_newtable(L);
-```
+{% endhighlight %}
 
 lua_pushinteger(L, 1)之后,栈的情况:  
 <img src="{{site.url}}/assets/lua-stack-2.png" />
@@ -199,14 +199,14 @@ lua_newtable(L)之后,栈的情况:
 
 出栈的函数或宏:  
 
-```
+{% endhighlight %}
     lua_setglobal\lua_settable\lua_setfield\lua_rawset\lua_rawseti\lua_rawsetp\lua_setmetatable\lua_setuservalue  
 从栈中获取数据的函数或宏:  
     luaL_checklstring\luaL_checknumber\luaL_checkinteger\luaL_checkunsigned  
 lua_settable的定义如下:  
-```
+{% endhighlight %}
 
-```C++
+{% highlight cpp %}
 LUA_API void lua_settable (lua_State *L, int idx) {  
     StkId t;  
     lua_lock(L);  
@@ -216,11 +216,11 @@ LUA_API void lua_settable (lua_State *L, int idx) {
     L->top -= 2;  /* pop index and value */  
     lua_unlock(L);  
 }  
-```
+{% endhighlight %}
 
 luaL_checknumber的定义如下:  
 
-```C++
+{% highlight cpp %}
 LUALIB_API lua_Number luaL_checknumber (lua_State *L, int narg) {  
     int isnum;  
     lua_Number d = lua_tonumberx(L, narg, &isnum);  
@@ -228,11 +228,11 @@ LUALIB_API lua_Number luaL_checknumber (lua_State *L, int narg) {
         tag_error(L, narg, LUA_TNUMBER);  
     return d;  
 }  
-```
+{% endhighlight %}
 
 示例代码如下(lua库的luaopen_base函数,用于注册):  
     
-```C++
+{% highlight cpp %}
 #define lua_pushglobaltable(L)  \
     lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS)
 
@@ -260,7 +260,7 @@ LUAMOD_API int luaopen_base (lua_State *L) {
     lua_setfield(L, -2, "_VERSION");  /* set global _VERSION */  
     return 1;  
 }  
-```
+{% endhighlight %}
     
 luaopen_base函数设置全局注册表的"_G"字段,base_funcs指定的函数列表,"_VERSION"字段.  
 第一个lua_pushglobaltable(L)之后:  
