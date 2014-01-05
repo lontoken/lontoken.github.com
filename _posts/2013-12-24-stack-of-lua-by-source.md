@@ -11,7 +11,7 @@ lua中有两种栈:数据栈和调用栈.
 lua中的数据可以分为两类:值类型和引用类型,值类型可以被任意复制,而引用类型共享一份数据,复制时只是复制其引用,并由GC负责维护其生命期.lua使用一个unine Value来保存数据.  
 <!--more-->
 
-```C++
+{% highlight cpp %}
 union Value {  
     GCObject *gc;    /* collectable objects */  
     void *p;         /* light userdata */  
@@ -19,7 +19,7 @@ union Value {
     lua_CFunction f; /* light C functions */  
     numfield         /* numbers */  
 };  
-```
+{% endhighlight %}
 
 引用类型用一个指针GCObject *gc来间接引用,而其它值类型都直接保存在联合中.  
 
