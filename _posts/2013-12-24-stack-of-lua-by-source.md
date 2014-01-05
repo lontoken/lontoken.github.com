@@ -185,7 +185,7 @@ LUA_API void lua_createtable (lua_State *L, int narray, int nrec) {
 
 示例代码如下:  
 
-{% endhighlight %}lua
+{% highlight lua %}lua
     lua_State* L = luaL_newstate();
     lua_pushnumber(L, 1);
     lua_newtable(L);
