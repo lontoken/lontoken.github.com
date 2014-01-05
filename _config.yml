@@ -1,7 +1,7 @@
 encoding: utf-8
 markdown: rdiscount
 permalink: /:title.html
-url: www.lontoken.com
+url: http://www.lontoken.com
 lsi: true
 pygments: true
 safe: true
