@@ -145,10 +145,10 @@ static void correctstack (lua_State *L, TValue *oldstack) {
 ##栈的使用
 入栈的函数或宏:  
 
-{% highlight cpp %}
+```
     lua_pushnil\lua_pushnumber\lua_pushinteger\lua_pushunsigned\lua_pushlstring\lua_pushstring\lua_pushvfstring\lua_pushfstring\lua_pushcclosure\lua_pushboolean\lua_pushlightuserdata\lua_pushthread\lua_newtable\lua_register\lua_pushcfunction;  
     lua_getglobal\lua_gettable\lua_getfield\lua_rawget\lua_rawgeti\lua_rawgetp\lua_createtable\lua_newuserdata\lua_getmetatable\lua_getuservalue  
-{% endhighlight %}
+```
 
 lua_pushnumber定义如下:  
 
@@ -199,12 +199,12 @@ lua_newtable(L)之后,栈的情况:
 
 出栈的函数或宏:  
 
-{% highlight cpp %}
+```
     lua_setglobal\lua_settable\lua_setfield\lua_rawset\lua_rawseti\lua_rawsetp\lua_setmetatable\lua_setuservalue  
 从栈中获取数据的函数或宏:  
     luaL_checklstring\luaL_checknumber\luaL_checkinteger\luaL_checkunsigned  
 lua_settable的定义如下:  
-{% endhighlight %}
+```
 
 {% highlight cpp %}
 LUA_API void lua_settable (lua_State *L, int idx) {  
