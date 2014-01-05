@@ -11,7 +11,7 @@ lua中有两种栈:数据栈和调用栈.
 lua中的数据可以分为两类:值类型和引用类型,值类型可以被任意复制,而引用类型共享一份数据,复制时只是复制其引用,并由GC负责维护其生命期.lua使用一个unine Value来保存数据.  
 <!--more-->
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 union Value {  
     GCObject *gc;    /* collectable objects */  
     void *p;         /* light userdata */  
@@ -25,7 +25,7 @@ union Value {
 
 在lua_State中栈的保存如下:  
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 struct lua_State {  
     StkId top;          /* first free slot in the stack */
     StkId stack_last;   /* last free slot in the stack */  
@@ -38,7 +38,7 @@ struct lua_State {
 
 StkId的定义:  
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 typedef TValue *StkId;  
 typedef struct lua_TValue TValue;  
 struct lua_TValue {  
@@ -46,13 +46,13 @@ struct lua_TValue {
 };  
 {% endhighlight %}
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 #define TValuefields    Value value_; int tt_  
 {% endhighlight %}
 
 在Windows VC下:  
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 #define TValuefields  \  
 union { struct { Value v__; int tt__; } i; double d__; } u  
 {% endhighlight %}
@@ -61,7 +61,7 @@ union { struct { Value v__; int tt__; } i; double d__; } u
 
 lua初始化堆栈:  
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 static void stack_init (lua_State *L1, lua_State *L) {
     int i; CallInfo *ci;
     /* initialize stack array */
@@ -88,7 +88,7 @@ static void stack_init (lua_State *L1, lua_State *L) {
 lua供C使用的栈相关API是不检查数据栈越界的,因为通常编写C扩展都能把数据栈空间的使用控制在BASIC_STACK_SIZE以内,或是显式扩展.对每次数据栈访问都强制做越界检查是非常低效的.  
 数据栈不够用时,可以使用luaD_reallocstack\luaD_growstack函数扩展,每次至少分配比原来大一倍的空间.  
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 /* some space for error handling */  
 #define ERRORSTACKSIZE  (LUAI_MAXSTACK + 200)  
 
@@ -126,7 +126,7 @@ void luaD_growstack (lua_State *L, int n) {
 
 数据栈扩展的过程,伴随着数据拷贝,这些数据都是可能直接值复制的,所有不需要在扩展之后修正其中的指针.但有此外部对数据栈的引用需要修正为正确的新地址.这些需要修正的位置包括upvalue以及执行对数据栈的引用.此过程由correctstack函数实现.  
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 static void correctstack (lua_State *L, TValue *oldstack) {  
     CallInfo *ci;  
     GCObject *up;  
@@ -152,7 +152,7 @@ static void correctstack (lua_State *L, TValue *oldstack) {
 
 lua_pushnumber定义如下:  
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 LUA_API void lua_pushinteger (lua_State *L, lua_Integer n) {  
     lua_lock(L);  
     //VS下展开之后:TValue *io_=(L->top); ((io_)->u.d__)=(n); ((void)0);  
@@ -165,7 +165,7 @@ LUA_API void lua_pushinteger (lua_State *L, lua_Integer n) {
 
 lua_newtable的定义如下:  
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 #define lua_newtable(L)     lua_createtable(L, 0, 0)  
 LUA_API void lua_createtable (lua_State *L, int narray, int nrec) {     
     Table *t;   
@@ -185,7 +185,7 @@ LUA_API void lua_createtable (lua_State *L, int narray, int nrec) {
 
 示例代码如下:  
 
-{% highlight lua %}lua
+{% highlight lua linenos %}
     lua_State* L = luaL_newstate();
     lua_pushnumber(L, 1);
     lua_newtable(L);
@@ -206,7 +206,7 @@ lua_newtable(L)之后,栈的情况:
 lua_settable的定义如下:  
 ```
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 LUA_API void lua_settable (lua_State *L, int idx) {  
     StkId t;  
     lua_lock(L);  
@@ -220,7 +220,7 @@ LUA_API void lua_settable (lua_State *L, int idx) {
 
 luaL_checknumber的定义如下:  
 
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 LUALIB_API lua_Number luaL_checknumber (lua_State *L, int narg) {  
     int isnum;  
     lua_Number d = lua_tonumberx(L, narg, &isnum);  
@@ -232,7 +232,7 @@ LUALIB_API lua_Number luaL_checknumber (lua_State *L, int narg) {
 
 示例代码如下(lua库的luaopen_base函数,用于注册):  
     
-{% highlight cpp %}
+{% highlight Cpp linenos %}
 #define lua_pushglobaltable(L)  \
     lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS)
 
