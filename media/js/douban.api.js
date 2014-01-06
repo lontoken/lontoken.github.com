@@ -1,7 +1,7 @@
 function DoubanApi() {
 	this.defaults = {
 		place:"douban",
-		user:"lontoken",
+		user:"lonthink",
 		api:"084feec275dceb3e18efcc476196c1ba",
 		book:[{status:"reading",maxnum:20},{status:"read",maxnum:100},{status:"wish",maxnum:100}],
 		bookreadingtitle:"在读...",
