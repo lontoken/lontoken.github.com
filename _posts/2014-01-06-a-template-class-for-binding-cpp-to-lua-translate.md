@@ -10,18 +10,18 @@ published: true
 最近在研究C/C++和Lua的交互问题，顺便看了下luna，自己尝试着翻译了此文，以供分享，初始翻译，权当练习。  
 
 ##摘要
-此文介绍了一种将C++类绑定到Lua的方法。Lua没有直接提供此方法，而是通过底层的C接口和扩展机制使其成为可能。我所描述的方法使用了Lua的C接口、C++模板和Lua的提高扩展机制，构建了一个小巧、简单且高效的提供类注册服务的静态模板类。这个方法对你的类只有一个小小的要求，即只有签名为 int(T::*)(lua_State*) 的成员函数能被注册。但是，正如我将要展示的，这个限制也能被克服。The end result is a clean interface to register classes, and familiar Lua table semantics of classes in Lua。此处描述的解决方案依赖于一个我命名为[Luna](http://lua-users.org/files/wiki_insecure/users/lpalozzi/luna.tar.gz)的模板类。
+此文介绍了一种将C++类绑定到Lua的方法。Lua没有直接提供此方法，而是通过底层的C接口和扩展机制来实现。我所描述的方法使用了Lua的C接口、C++模板和Lua的扩展机制，构建了一个小巧、简单且高效的提供类注册服务的静态模板类。这个方法对你的类只有一个小小的要求，即只有签名为 int(T::\*)(lua_State\*) 的成员函数能被注册。但是，正如我将要展示的，这个限制也能被克服。The end result is a clean interface to register classes, and familiar Lua table semantics of classes in Lua。此处描述的解决方案依赖于一个我命名为[Luna](http://lua-users.org/files/wiki_insecure/users/lpalozzi/luna.tar.gz)的模板类。
 <!--more-->
 
 ##问题
-Lua的接口没被设计来注册C++类到Lua中，只提供了注册签名为 int()(lua_State*) 的C函数。实际上，这是Lua支持注册的唯一C数据类型。为了注册其它类型，你需要使用Lua提供的扩展机制，如tag methods、closures等。为了创建允许我们注册C++类到Lua的方案，必须使用这些扩展机制。
+Lua的接口的设计，不能注册C++类到Lua中，只提供了注册签名为 int()(lua_State\*) 的C函数。实际上，这是Lua支持注册的唯一C数据类型。为了注册其它类型，你需要使用Lua提供的扩展机制，如tag methods、closures等。为了创建注册C++类到Lua的方案，必须使用这些扩展机制。
 
 ##方案
 此方案主要有4个元素：类注册、对象实例化、成员函数调用和垃圾回收。
 
-类注册是通过以类的名字注册一个表构造函数(a table constructor function with the name of the class)。表构造函数一个在lua_State中注册一个表的静态模板函数。
+类注册是通过以类的名字注册一个表构造函数(a table constructor function with the name of the class)。表构造函数是一个在lua_State中注册一个表的静态模板函数。
 
-注释：静态类成员函数是和C函数兼容的，如果它们的签名相同，则我们可以在Lua中注册它们。下面的代码片段是一个模板类的成员函数，T 是待注册的类。
+注释：静态类成员函数是和C函数相兼容的，如果它们的签名相同，则我们可以在Lua中注册它们。下面的代码片段是一个模板类的成员函数，T 是待注册的类。
 
 {% highlight cpp linenos %}
 static void Register(lua_State* L) {
@@ -36,7 +36,7 @@ static void Register(lua_State* L) {
 }
 {% endhighlight %}
 
-对象实例化是通过passing any arguments the user passed to the table constructor function to the constructor of the C++ object，创建一个代表对象的表，注册一些类的成员函数到表上，最后将表返回给Lua。对象的指针为用userdata保存在表中，其对应的索引为0.成员函数的序号做为闭包的值保存在所有函数中。More on the member function map later。
+对象实例化是通过passing any arguments the user passed to the table constructor function to the constructor of the C++ object，创建一个代表对象的表，注册一些类的成员函数到表上，最后将表返回给Lua。对象的指针做为userdata保存在表中，其对应的索引为0。成员函数的序号做为闭包的值保存在所有函数中。More on the member function map later。
 
 {% highlight cpp linenos %}
 static int constructor(lua_State* L) {
@@ -73,7 +73,7 @@ static int thunk(lua_State* L) {
 }
 {% endhighlight %}
 
-垃圾回收是通过在设置表中userdata的垃圾回收标志方法。当垃圾回收被触发时，'gc'标志方法就会被调用来删除对象。'gc'标志方法是在类注册时通过一个新的标志注册的。在上面的实例化时，userdata就通过一个标签来标志。
+垃圾回收是通过在设置表中userdata的垃圾回收标志方法。当垃圾回收被触发时，'gc'标志方法就会被调用以删除对象。'gc'标志方法是在类注册时通过一个新的标志注册的。在上面的实例化时，userdata就通过一个标签来标志。
 
 {% highlight cpp linenos %}
 static int gc_obj(lua_State* L) {
@@ -84,10 +84,11 @@ static int gc_obj(lua_State* L) {
 {% endhighlight %}
 
 注意，有一些规则类需要遵守：  
-*   必须一个公开的构造函数，它有一个lua_State*参数;  
-*   被注册的成员函数签名必须是 int(T::*)(lua_State*);  
-*   必须有一个 public static const char[] className成员;  
-*   必须有一个 public static const Luna<T>::RegType[] Register成员；  
+1. 必须一个公开的构造函数，它有一个lua_State*参数;  
+2. 被注册的成员函数签名必须是 int(T::*)(lua_State*);  
+3. 必须有一个 public static const char[] className成员;  
+4. 必须有一个 public static const Luna<T>::RegType[] Register成员；  
+
 注释：这些要求是我所选择的设计的要求，你可以使用不同的接口，只需要代码做很小的改动。  
 
 Luna<T>::RegType 是一个函数哈希表。name 是被注册的 mfunc 函数的名字。  
@@ -171,7 +172,7 @@ thunk机制是类的核心，因为它转换了函数调用。它通过将表调
 
 实际上，这个实现只利用了Lua扩展机制很少的特性，闭包来保持成员函数的索引，'gc'标志成员用于垃圾回收，表的构造函数做函数注册和成员函数的调用。
 
-为什么只允许签名为 int(T::*)(lua_State*) 成员函数被注册？这允许你的成员函数和Lua直接交互，接收Lua传入的参数并返回值到Lua，调用任何的Lua Api函数等。此外，它提供了与注册到Lua中的C函数相同的签名，这使得想使用C++的人更方便。  
+为什么只允许签名为 int(T::\*)(lua_State\*) 成员函数被注册？这允许你的成员函数和Lua直接交互，接收Lua传入的参数并返回值到Lua，调用任何的Lua Api函数等。此外，它提供了与注册到Lua中的C函数相同的签名，这使得想使用C++的人更方便。  
 
 ##不足
 这个模板类方案只能绑定特定签名的成员函数。如果你有之前写的类，或想在Lua和C++的环境中都能使用，这个方案对你来说可能不是最好的。理论上这不是一个问题。使用代理模式，我们封装实际的类，并且代理任何对目标对象的调用。代理类的成员函数强迫Lua的参数和返回值，并且代理对目标对象的调用。你将在Lua中注册代理类，而不是实际类。Additionally, you may use inheritance as well where the proxy class inherits from the base class and delegates the function calls up to the base class, but with one caveat, the base class must have a default constructor; you cannot get the constructor arguments from Lua to the base class in the proxy's constructor initializer list。代理模式解决了我们想在Lua和C++环境中使用的问题，但它要求我们写代理类并且维护它们。
