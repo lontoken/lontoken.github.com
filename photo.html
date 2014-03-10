@@ -18,7 +18,8 @@ photo: true
             if (data.stat != 'ok') return;
             if (data.photos.total <= 0) return;
             var strHtml = '<ul>';
-            for (var i = 0; i < data.photos.total; i++) {
+            curCount = data.photos.perpage > data.photos.total ? data.photos.total : data.photos.perpage;
+            for (var i = 0; i < curCount; i++) {
                 
                 var photo = data.photos.photo[i];
                 console.log(i);
