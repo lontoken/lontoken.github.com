@@ -15,9 +15,6 @@ memcached安装和libmemcached的使用test
 
 #libevent安装#
 
-{% highlight sh %}
 wget http://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
-tar -xvzf libevent-2.0.21-stable.tar.gz
-{% highlight %}
 
 <!--more-->
