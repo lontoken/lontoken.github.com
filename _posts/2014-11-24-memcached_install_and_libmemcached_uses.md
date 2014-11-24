@@ -11,7 +11,8 @@ memcached安装和libmemcached的使用
     操作系统：Ubuntu14.04 32bit
     libevent版本: 2.0.21
     memdatach版本: v1.4.21
-    
+
+
 #libevent安装#
 
 {% highlight sh %}
@@ -30,6 +31,7 @@ memcached安装和libmemcached的使用
 {% highlight sh %}
 #ls /usr/lib/ | grep  libevent
 {% highlight %}
+
 
 #memcached安装#
 
@@ -62,6 +64,7 @@ memcached安装和libmemcached的使用
 #ps -ef | grep memcached
 {% highlight %}
 
+
 #测试memcached#
 连接memcached最简单的方法是通过telnet。
 
@@ -87,6 +90,7 @@ get user_id
 
 PS:退出telnet，可以键入alt+] q
 
+
 #libmemcached安装#
 
 {% highlight %}shell
@@ -103,6 +107,7 @@ PS:退出telnet，可以键入alt+] q
 {% highlight sh %}
 #ls /usr/local/lib | grep libmemcached
 {% highlight %}
+
 
 #使用C++通过libmemcached连接memcached#
 C++源文件 libmemcachedtest.cpp 
