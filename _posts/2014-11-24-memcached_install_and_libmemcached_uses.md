@@ -3,15 +3,17 @@ layout: post
 title: memcached安装和libmemcached的使用
 tags: [memcached,安装,libmemcached]
 ---
-memcached安装和libmemcached的使用
-#memcached安装和libmemcached的使用
 
-##环境和版本
+memcached安装和libmemcached的使用
+====
+
+#环境和版本#
     操作系统：Ubuntu14.04 32bit
     libevent版本: 2.0.21
     memdatach版本: v1.4.21
     
-##libevent安装
+#libevent安装#
+
 {% highlight sh %}
 # wget http://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
 #tar -xvzf libevent-2.0.21-stable.tar.gz
@@ -20,14 +22,17 @@ memcached安装和libmemcached的使用
 #make
 #make install
 {% highlight %}
+
 <!--more-->
 
 查看是否安装成功:
+
 {% highlight sh %}
 #ls /usr/lib/ | grep  libevent
 {% highlight %}
 
-##memcached安装
+#memcached安装#
+
 {% highlight sh %}
 #wget wget http://www.memcached.org/files/memcached-1.4.21.tar.gz
 #tar -xvzf memcached-1.4.21.tar.gz
@@ -38,34 +43,40 @@ memcached安装和libmemcached的使用
 {% highlight %}
 
 查看是否安装成功:
+
 {% highlight sh %}
 #ll /usr/local/bin
 {% highlight %}
 
 
-##memcached启动
+#memcached启动#
+
 {% highlight sh %}
  #/usr/local/bin/memcached -d -u root -m 512 127.0.0.1 -p 11211
 {% highlight %}
 
 查看侦听端口和进程信息：
+
 {% highlight sh %}
 #netstat -a |grep 11211
 #ps -ef | grep memcached
 {% highlight %}
 
-##测试memcached
+#测试memcached#
 连接memcached最简单的方法是通过telnet。
+
 {% highlight sh %}
 #telnet 127.0.0.1 11211
 {% highlight %}
 
-查看memcached的状态(telnet下执行)
+查看memcached的状态(telnet下执行): 
+
 {% highlight sh %}
 stats
 {% highlight %}
 
-键值简单的设置、查看和删除(telnet下执行)
+键值简单的设置、查看和删除(telnet下执行): 
+
 {% highlight sh %}
 set user_id 0 0 5
 12345
@@ -76,7 +87,8 @@ get user_id
 
 PS:退出telnet，可以键入alt+] q
 
-##libmemcached安装
+#libmemcached安装#
+
 {% highlight %}shell
 #wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
 #tar -xvzf libmemcached-1.0.18.tar.gz
@@ -86,13 +98,15 @@ PS:退出telnet，可以键入alt+] q
 #make install
 {% highlight %}
 
-查看libmemcached是否安装成功
+查看libmemcached是否安装成功:
+
 {% highlight sh %}
 #ls /usr/local/lib | grep libmemcached
 {% highlight %}
 
-##使用C++通过libmemcached连接memcached
+#使用C++通过libmemcached连接memcached#
 C++源文件 libmemcachedtest.cpp 
+
 {% highlight c++ %}
 #include <iostream>
 #include <string>
@@ -166,17 +180,20 @@ int main(int argc, char *argv[])
 {% highlight %}
 
 编译前需要设置LD_LIBRARY_PATH环境变更，以使libmemcached能被找到。
+
 {% highlight sh %}
 $export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
 {% highlight %}
  
 编译并执行：
+
 {% highlight sh %}
 $g++ -std=c++11 -o libmemcachedtest libmemcachedtest.cpp -lmemcached
 $./libmemcachedtest
 {% highlight %}
  
 如果一切顺利，输出如下：
+
 {% highlight sh %}
 test start
 append start
