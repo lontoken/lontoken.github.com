@@ -12,87 +12,88 @@ memcached安装和libmemcached的使用
     memdatach版本: v1.4.21
     
 ##libevent安装
-``` shell
+{% highlight sh %}
 # wget http://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
 #tar -xvzf libevent-2.0.21-stable.tar.gz
 #cd libevent-2.0.21-stable
 #./configure -prefix=/usr
 #make
 #make install
-```
+{% highlight %}
+<!--more-->
 
 查看是否安装成功:
-``` shell
+{% highlight sh %}
 #ls /usr/lib/ | grep  libevent
-```
+{% highlight %}
 
 ##memcached安装
-``` shell
+{% highlight sh %}
 #wget wget http://www.memcached.org/files/memcached-1.4.21.tar.gz
 #tar -xvzf memcached-1.4.21.tar.gz
 #cd memcached-1.4.21
 #./configure -with-libevent=/usr
 #make
 #make install
-```
+{% highlight %}
 
 查看是否安装成功:
-``` shell
+{% highlight sh %}
 #ll /usr/local/bin
-```
+{% highlight %}
 
 
 ##memcached启动
-``` shell
+{% highlight sh %}
  #/usr/local/bin/memcached -d -u root -m 512 127.0.0.1 -p 11211
-```
+{% highlight %}
 
 查看侦听端口和进程信息：
-``` shell
+{% highlight sh %}
 #netstat -a |grep 11211
 #ps -ef | grep memcached
-```
+{% highlight %}
 
 ##测试memcached
 连接memcached最简单的方法是通过telnet。
-``` shell
+{% highlight sh %}
 #telnet 127.0.0.1 11211
-```
+{% highlight %}
 
 查看memcached的状态(telnet下执行)
-``` shell
+{% highlight sh %}
 stats
-```
+{% highlight %}
 
 键值简单的设置、查看和删除(telnet下执行)
-``` shell
+{% highlight sh %}
 set user_id 0 0 5
 12345
 get user_id
 delete user_id
 get user_id
-```
+{% highlight %}
 
 PS:退出telnet，可以键入alt+] q
 
 ##libmemcached安装
-```shell
+{% highlight %}shell
 #wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
 #tar -xvzf libmemcached-1.0.18.tar.gz
 #cd libmemcached-1.0.18
 #./configure
 #make
 #make install
-```
+{% highlight %}
 
 查看libmemcached是否安装成功
-``` shell
+{% highlight sh %}
 #ls /usr/local/lib | grep libmemcached
-```
+{% highlight %}
 
 ##使用C++通过libmemcached连接memcached
 C++源文件 libmemcachedtest.cpp 
-``` c++
+{% highlight c++ %}
 #include <iostream>
 #include <string>
 #include <libmemcached/memcached.h>
@@ -162,21 +163,21 @@ int main(int argc, char *argv[])
     cout << "test end." << endl;
     return 0;
 }
-```
+{% highlight %}
 
 编译前需要设置LD_LIBRARY_PATH环境变更，以使libmemcached能被找到。
-``` shell
+{% highlight sh %}
 $export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
-```
+{% highlight %}
  
 编译并执行：
-``` shell
+{% highlight sh %}
 $g++ -std=c++11 -o libmemcachedtest libmemcachedtest.cpp -lmemcached
 $./libmemcachedtest
-```
+{% highlight %}
  
 如果一切顺利，输出如下：
-``` shell
+{% highlight sh %}
 test start
 append start
 save data
@@ -186,7 +187,7 @@ get value sucessful, result=value
 delete data
 delete key sucessful. key=key
 test end.
-```
+{% highlight %}
 
 -----------------
 本文结束，若有错误和疑问，欢迎交流(邮件：lontoken@gmail.com)。
