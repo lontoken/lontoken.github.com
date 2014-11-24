@@ -16,7 +16,7 @@ memcached安装和libmemcached的使用
 #libevent安装#
 
 {% highlight sh %}
-# wget http://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
+#wget http://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
 #tar -xvzf libevent-2.0.21-stable.tar.gz
 #cd libevent-2.0.21-stable
 #./configure -prefix=/usr
@@ -54,7 +54,7 @@ memcached安装和libmemcached的使用
 #memcached启动#
 
 {% highlight sh %}
- #/usr/local/bin/memcached -d -u root -m 512 127.0.0.1 -p 11211
+#/usr/local/bin/memcached -d -u root -m 512 127.0.0.1 -p 11211
 {% highlight %}
 
 查看侦听端口和进程信息：  
@@ -93,7 +93,7 @@ PS:退出telnet，可以键入alt+] q
 
 #libmemcached安装#
 
-{% highlight shell %}  
+{% highlight sh %}  
 #wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
 #tar -xvzf libmemcached-1.0.18.tar.gz
 #cd libmemcached-1.0.18
