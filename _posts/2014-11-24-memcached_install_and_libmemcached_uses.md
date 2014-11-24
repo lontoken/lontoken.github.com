@@ -8,9 +8,9 @@ memcached安装和libmemcached的使用
 ====
 
 #环境和版本#
-    操作系统：Ubuntu14.04 32bit
-    libevent版本: 2.0.21
-    memdatach版本: v1.4.21
+>  操作系统：Ubuntu14.04 32bit
+>  libevent版本: 2.0.21
+>  memdatach版本: v1.4.21
 
 
 #libevent安装#
