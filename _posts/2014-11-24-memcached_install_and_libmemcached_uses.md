@@ -1,16 +1,16 @@
 ---
-layout: post
-title: memcached安装和libmemcached的使用
-tags: [memcached,安装,libmemcached]
+layout: post  
+title: memcached安装和libmemcached的使用  
+tags: [memcached,安装,libmemcached]  
 ---
 
-memcached安装和libmemcached的使用
+memcached安装和libmemcached的使用  
 ====
 
 #环境和版本#
->  操作系统：Ubuntu14.04 32bit 
->  libevent版本: 2.0.21 
->  memdatach版本: v1.4.21 
+>    操作系统：Ubuntu14.04 32bit  
+>    libevent版本: 2.0.21  
+>    memdatach版本: v1.4.21  
 
 
 #libevent安装#
@@ -26,7 +26,7 @@ memcached安装和libmemcached的使用
 
 <!--more-->
 
-查看是否安装成功: 
+查看是否安装成功:  
 
 {% highlight sh %}
 #ls /usr/lib/ | grep  libevent
@@ -35,7 +35,7 @@ memcached安装和libmemcached的使用
 
 #memcached安装#
 
-{% highlight sh %}
+{% highlight sh %}  
 #wget wget http://www.memcached.org/files/memcached-1.4.21.tar.gz
 #tar -xvzf memcached-1.4.21.tar.gz
 #cd memcached-1.4.21
@@ -57,7 +57,7 @@ memcached安装和libmemcached的使用
  #/usr/local/bin/memcached -d -u root -m 512 127.0.0.1 -p 11211
 {% highlight %}
 
-查看侦听端口和进程信息： 
+查看侦听端口和进程信息：  
 
 {% highlight sh %}
 #netstat -a |grep 11211
@@ -66,13 +66,13 @@ memcached安装和libmemcached的使用
 
 
 #测试memcached#
-连接memcached最简单的方法是通过telnet。 
+连接memcached最简单的方法是通过telnet。  
 
 {% highlight sh %}
 #telnet 127.0.0.1 11211
 {% highlight %}
 
-查看memcached的状态(telnet下执行):  
+查看memcached的状态(telnet下执行):    
 
 {% highlight sh %}
 stats
@@ -93,7 +93,7 @@ PS:退出telnet，可以键入alt+] q
 
 #libmemcached安装#
 
-{% highlight shell %}
+{% highlight shell %}  
 #wget https://launchpad.net/libmemcached/1.0/1.0.18/+download/libmemcached-1.0.18.tar.gz
 #tar -xvzf libmemcached-1.0.18.tar.gz
 #cd libmemcached-1.0.18
@@ -102,17 +102,17 @@ PS:退出telnet，可以键入alt+] q
 #make install
 {% highlight %}
 
-查看libmemcached是否安装成功: 
+查看libmemcached是否安装成功:  
 
 {% highlight sh %}
 #ls /usr/local/lib | grep libmemcached
 {% highlight %}
 
 
-#使用C++通过libmemcached连接memcached#
-C++源文件 libmemcachedtest.cpp 
+#使用C++通过libmemcached连接memcached# 
+C++源文件 libmemcachedtest.cpp  
 
-{% highlight c++ %}
+{% highlight c++ linenos %}
 #include <iostream>
 #include <string>
 #include <libmemcached/memcached.h>
