@@ -1,7 +1,8 @@
 ---
 layout: post  
 title: memcached安装和libmemcached的使用  
-tags: [memcached,安装,libmemcached]  
+tags: [memcached,安装,libmemcached]
+published: true
 ---
 
 memcached安装和libmemcached的使用  
