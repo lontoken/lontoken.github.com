@@ -23,7 +23,7 @@ memcached安装和libmemcached的使用
 #./configure -prefix=/usr
 #make
 #make install
-{% highlight %}
+{% endhighlight %}
 
 <!--more-->
 
@@ -31,7 +31,7 @@ memcached安装和libmemcached的使用
 
 {% highlight sh %}
 #ls /usr/lib/ | grep  libevent
-{% highlight %}
+{% endhighlight %}
 
 
 #memcached安装#
@@ -43,27 +43,27 @@ memcached安装和libmemcached的使用
 #./configure -with-libevent=/usr
 #make
 #make install
-{% highlight %}
+{% endhighlight %}
 
 查看是否安装成功: 
 
 {% highlight sh %}
 #ll /usr/local/bin
-{% highlight %}
+{% endhighlight %}
 
 
 #memcached启动#
 
 {% highlight sh %}
 #/usr/local/bin/memcached -d -u root -m 512 127.0.0.1 -p 11211
-{% highlight %}
+{% endhighlight %}
 
 查看侦听端口和进程信息：  
 
 {% highlight sh %}
 #netstat -a |grep 11211
 #ps -ef | grep memcached
-{% highlight %}
+{% endhighlight %}
 
 
 #测试memcached#
@@ -71,13 +71,13 @@ memcached安装和libmemcached的使用
 
 {% highlight sh %}
 #telnet 127.0.0.1 11211
-{% highlight %}
+{% endhighlight %}
 
 查看memcached的状态(telnet下执行):    
 
 {% highlight sh %}
 stats
-{% highlight %}
+{% endhighlight %}
 
 键值简单的设置、查看和删除(telnet下执行):  
 
@@ -87,7 +87,7 @@ set user_id 0 0 5
 get user_id
 delete user_id
 get user_id
-{% highlight %}
+{% endhighlight %}
 
 PS:退出telnet，可以键入alt+] q 
 
@@ -101,13 +101,13 @@ PS:退出telnet，可以键入alt+] q
 #./configure
 #make
 #make install
-{% highlight %}
+{% endhighlight %}
 
 查看libmemcached是否安装成功:  
 
 {% highlight sh %}
 #ls /usr/local/lib | grep libmemcached
-{% highlight %}
+{% endhighlight %}
 
 
 #使用C++通过libmemcached连接memcached# 
@@ -183,20 +183,20 @@ int main(int argc, char *argv[])
     cout << "test end." << endl;
     return 0;
 }
-{% highlight %}
+{% endhighlight %}
 
 编译前需要设置LD_LIBRARY_PATH环境变更，以使libmemcached能被找到。 
 
 {% highlight sh %}
 $export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/
-{% highlight %}
+{% endhighlight %}
  
 编译并执行：
 
 {% highlight sh %} 
 $g++ -std=c++11 -o libmemcachedtest libmemcachedtest.cpp -lmemcached
 $./libmemcachedtest
-{% highlight %} 
+{% endhighlight %} 
  
 如果一切顺利，输出如下： 
 
@@ -210,7 +210,7 @@ get value sucessful, result=value
 delete data
 delete key sucessful. key=key
 test end.
-{% highlight %}
+{% endhighlight %}
 
 -----------------
 本文结束，若有错误和疑问，欢迎交流(邮件：lontoken@gmail.com)。  
