@@ -13,6 +13,7 @@ Windows下通过SSH远程访问Linux
 在Windows下访问/控制Linux最好的方式无疑是通过SSH。 
 本文将详细说明Windows下使用SSH访问Linux，SSH库选用开源的libssh2，其openssl和zlib库。下面将详细说明它们的编译和使用，并简单的演示对Linux的访问/控制。   
 
+<!--more-->
 
 #环境和版本#
 >    操作系统：Windows 7 64位，Ubuntu14.04 32bit   
