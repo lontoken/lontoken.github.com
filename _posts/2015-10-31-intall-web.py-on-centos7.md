@@ -16,6 +16,8 @@ CentOS7上安装web.py
 #EasyInstall安装#
 用来下载安装Python一个公共资源库PyPI的相关资源包的。有了EasyInstall，python的包管理会简单很多。  
 
+<!--more-->
+
 {% highlight sh %}
 #wget https://bootstrap.pypa.io/ez_setup.py
 #python ez_setup.py
