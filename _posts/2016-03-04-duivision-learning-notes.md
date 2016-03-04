@@ -17,7 +17,7 @@ DirectUI 技术需要解决的主要问题如下：
 
 ##XML资源文件定义
 基于 DuiVision 界面库的程序，需要有一个默认的资源定义 XML 文件，此文件默认的位置是exe 文件所在路径下的 xml\resource.xml 文件，如果使用了 zip 压缩文件来保存所有资源文件，则此文件的位置是在压缩包中的 xml\resource.xml 文件。此文件中可以定义程序的全局配置、XML 文件、字体、图片、文字等资源，示例如下：
-```xml
+{% highlight xml linenos %}
 <?xml version="1.0" encoding="utf-8"?>
 <root>
     <!--系统配置-->
@@ -61,7 +61,7 @@ DirectUI 技术需要解决的主要问题如下：
     <res type="str" lang="zh-cn" name="CANCEL" value="放弃"/>
     <res type="str" lang="zh-cn" name="LOGIN" value="登录"/>
 </root>
-```
+{% endhighlight %}
 说明：
 1. 全局配置定义
 Xml 的 type 是 cfg，目前支持的配置如下：
@@ -69,9 +69,9 @@ logfile – 日志文件名，是相对 exe 的路径的文件名，如果未定
 loglevel – 日志级别，1 表示调试级别，2 表示信息级别，4 表示错误级别，8 表示致命级别
 defaultStyle – 默认的风格，resource.xml 中的每个资源定义都可以加一个 style 属性，通过
 style 属性指定这条资源定义是针对哪种风格的，只有和当前的风格相同的资源或者默认风格的资源才会被加载，资源定义中指定风格的例子如下：
-```xml
+{% highlight xml linenos %}
 <res type="xml" style="qq" name="dlg_main" file="xml\dlg_wnd.xml" />
-```
+{% endhighlight %}
 appMutex – 应用程序互斥量的名字，如果指定了此变量，则应用程序只能创建一个运行的进程，第二个进程运行时候判断如果存在此名字的互斥量，则退出；
 enableDragFile – 是否允许拖拽一个图片文件到程序窗口来指定当前使用的背景图片；
 trayDbClickMsg – 在托盘图标双击是否发送消息，用于重新定义托盘图标双击的行为，托盘图标双击的默认行为是打开程序的主窗口，如果此变量设置为 1，则双击托盘图标会给应用程序发送一个 DUI 消息，消息类型为 MSG_TRAY_DBCLICK，消息的发送方 ID 和名字分别是TRAY_ICON 和 NAME_TRAY_ICON，可以在 DUI 消息处理类中增加对此消息的处理，来实现自定义的双击动作；
@@ -106,7 +106,7 @@ Type 是 str，lang 表示是针对哪种语言的字体，name 是其他地方�
 
 ##XML对话框文件定义
 程序中所有界面都是基于对话框或菜单等窗口的，每个对话框都需要有一个 XML 定义文件，用于描述对话框中的内容，对话框中主要是组成对话框的各个控件的定义，对话框的 XML定义示例如下：
-```xml
+{% highlight xml linenos %}
 <?xml version="1.0" encoding="utf-8"?>
 <dlg name="dlg_about" title="MsgBox" width="450" height="230" appwin="1" resize="1" translucent="245" frame="" bkimg="skin:SKIN_PIC_7" crbk="000000">
     <base>
@@ -123,7 +123,7 @@ Type 是 str，lang 表示是针对哪种语言的字体，name 是其他地方�
         <button name="button.ok" skin="IDB_BT_DEFAULT" title="[OK]" pos="-100,-30,-20,-6" show="1"/>
     </body>
 </dlg>
-```
+{% endhighlight %}
 说明：
 dlg 标签是对话框自身一些属性的描述，可以设置对话框的大小、 背景图片、 蒙版图片、透明度、应用程序窗口属性、改变大小属性等；
 base 标签下面的内容都是属于对话框的基础控件，一般可以把对话框的标题和关闭按钮等放在基础控件部分定义；
@@ -158,7 +158,7 @@ DuiVision 支持将所有的图片和 XML 资源文件放在一个 zip 格式的
 
 3. DuiVision 库的初始化以及主窗口的定义
 在主程序的 App 类 InitInstance()函数中添加 DuiVision 库的引用代码，示例代码如下：
-```cpp
+{% endhighlight %}cpp
 // 初始化DuiVision界面库,可以指定语言,dwLangID为表示自动判断当前语言
 // 1116是应用程序ID，每个DUI应用程序应该使用不同的ID
 // ID主要用于进程间通信传递命令行时候区分应用
@@ -182,7 +182,7 @@ INT_PTR nResponse = pMainDlg->RunModalLoop();
 //INT_PTR nResponse = pMainDlg->DoModal();
 // 释放DuiVision界面库的资源
 DuiSystem::Release();
-```
+{% endhighlight %}
 如果已经定义了主窗口的 XML 定义文件，添加上面的代码之后应该就可以创建出主窗口了。
 这段代码做的事情主要是：
 1、DuiVision 库的初始化，并指定资源文件的位置（不指定则使用默认的位置）
@@ -202,7 +202,7 @@ DuiSystem 构造函数第三个参数（资源文件名）的说明，资源文�
 ##事件处理类编写
 除了界面的描述之外，最主要的工作就是业务逻辑的处理，为了将业务逻辑和界面展示能够更好的分离，DuiVision 中定义了事件处理基类，所有的业务逻辑都应该写在派生的事件处理类中，并把事件处理对象注册到相应的对话框或控件上，这样对应的子控件有事件需要处理的时候，就会自动调用注册的事件处理对象的相应函数。事件处理类只要在处理函数中根据控件的 ID 或名字决定该做什么事情，写相应的处理代码就可以。时间处理类中同时提供了一些函数方便根据 ID 或名字获取到对应的控件对象，并对控件进行操作，例如改变控件文字、获取控件的某个状态等。
 事件处理基类是CDuiHandler，这个类的一些函数如下，提供了获取控件对象、设置控件的一些参数的函数，方便在事件处理类中对控件的操作：
-```cpp
+{% endhighlight %}cpp
 void SetDuiObject(CDuiObject* pDuiObject);
 CControlBase* GetControl(UINT uControlID);
 CControlBase* GetControl(CString strControlName);
@@ -213,9 +213,9 @@ void SetTitle(CString strControlName, CString strTitle);
 CString GetTitle(CString strControlName);
 virtual void OnInit();
 virtual LRESULT OnDuiMessage(UINT uID, CString strName, UINT Msg, WPARAM wParam, LPARAM lParam);
-```
+{% endhighlight %}
 下面这段代码是在派生的事件处理类的 OnDuiMessage 函数中判断如果点击了某个按钮，就修改一个进度条进度的代码：
-```cpp
+{% endhighlight %}cpp
 if(strName == _T("button_normal_3"))
 {
     CDuiProgress* pControl = (CDuiProgress*)GetControl(_T("progress"));
@@ -230,7 +230,7 @@ if(strName == _T("button_normal_3"))
         pControl->SetProgress(g_nProgress);
     }
 }
-```
+{% endhighlight %}
 为了简化事件处理类的编写，使事件处理的代码看起来更清晰一些，DuiHandler.h 中定义了一些事件处理函数的消息映射宏，如下表所示：
 
 | 宏 | 参数 | 说明 |
@@ -243,7 +243,7 @@ if(strName == _T("button_normal_3"))
 | DUI_CONTROL_NAMEMSG_MESSAGE |控件名、消息、处理函数 | 根据控件名和消息，执行相应的处理函数 |
 
 实际定义的样例如下：
-```cpp
+{% endhighlight %}cpp
 // 消息处理定义
 DUI_DECLARE_MESSAGE_BEGIN(CDuiHandlerMain)
 DUI_CONTROL_ID_MESSAGE(APP_IPC, OnDuiMsgInterprocess)
@@ -256,16 +256,16 @@ DUI_CONTROL_NAMEMSG_MESSAGE(L"notify_button_3", BUTTOM_UP, OnDuiMsgNotifyButton3
 DUI_CONTROL_NAMEMSG_MESSAGE(L"listctrl_1", BUTTOM_DOWN, OnDuiMsgListCtrl1Click)
 DUI_CONTROL_NAMEMSG_MESSAGE(L"listctrl_2", BUTTOM_DOWN, OnDuiMsgListCtrl2Click)
 DUI_DECLARE_MESSAGE_END()
-```
+{% endhighlight %}
 在编写自己的 Handler 事件处理类时候可以参考样例，定义消息映射宏，每个需要处理的消息定义一行内容，定义出哪个控件的什么消息需要处理，由哪个函数处理，消息处理函数必须按照固定的参数格式来编写，消息处理函数的样例如下：
-```cpp
+{% endhighlight %}cpp
 // 显示信息对话框消息处理
 LRESULT CDuiHandlerMain::OnDuiMsgMsgBoxButton1(UINT uID, CString strName, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
     DuiSystem::DuiMessageBox(NULL, _T("演示对话框！"));
     return TRUE;
 }
-```
+{% endhighlight %}
 每个消息处理函数必须按照以上样例中的参数格式， 函数的返回值表示此消息是否不再需要向下传递继续处理了，如果返回 TRUE，则消息处理结束，如果返回 FALSE，则此消息还可以继续被后面定义的其他函数处理。
 
 ##控件的唯一标识和控件查找
@@ -317,9 +317,9 @@ DuiVision 库中预定义了一些控件名、动作和事件，这些定义可�
 
 ##控件的快捷键和焦点的支持
 每个控件可以设置快捷键，设置方法是在 xml 中设置 shortcut 属性，例如下面这个控件设置快捷键为 ESC 键：
-```xml
+{% highlight xml linenos %}
 <imgbtn name="button.close" pos="-45,0,-0,29" skin="IDB_BT_CLOSE" shortcut="ESC" />
-```
+{% endhighlight %}
 快捷键的写法是 flag+char 的形式，flag 可以是 CTRL、 ALT、 SHIFT，分别表示几个控制键是否按下，char 是键的名字，可以用的包括字母、数字，以及下面这些键：
 RETURN – 回车
 ESC – 取消
@@ -345,7 +345,7 @@ DuiVision 的控件支持焦点状态，如果一个控件要支持焦点的话�
 设置了 tip 之后，当鼠标移动到此控件并停留一段时间，就会显示此控件的 tip 信息.
 
 ##动态创建界面控件
-```cpp
+{% endhighlight %}cpp
 CDuiButton* pToolBtn = static_cast<CDuiButton*>(DuiSystem::CreateControlByName(L"button", m_pDlg->GetSafeHwnd(), m_pDuiObject));
 if(pToolBtn)
 {
@@ -359,28 +359,28 @@ if(pToolBtn)
     pToolBtn->SetAction(L"dlg:dlg_login");
     pToolBtn->OnPositionChange();
 }
-```
+{% endhighlight %}
 创建之后再调用控件的函数来设置控件的一些属性，需要特别注意的是控件的位置信息的设置，必须使用位置字符串的方式来设置，因为位置字符串是可以根据父控件的位置信息计算出控件的实际位置的，如果不采用这种方式，直接指定控件的位置，则可能会因为位置自动计算时候没有相关的信息导致最后计算不出真正的位置。
 位置字符串设置需要调用 SetPosStr 函数进行设置，注意最后一定要调用 OnPositionChange函数，这个函数会真正进行一次位置计算，这样才能使控件显示在正确的位置。
 
 ##日志文件定义
 DuiVision 提供了日志文件的操作函数，在任何地方都可以通过如下代码调用日志函数来写日志：
-```cpp
+{% endhighlight %}cpp
 DuiSystem::LogEvent(LOG_LEVEL_DEBUG, _T("CDuiHandlerTab3::OnDuiMessage:uID=%d, name=%s, msg=%d, wParam=%d, lParam=%d"), uID, strName, Msg, wParam, lParam);
-```
+{% endhighlight %}
 此函数的第一个参数是日志的级别，后面的参数类似于 C 语言的 printf 的写法。级别定义如下：
-```cpp
+{% endhighlight %}cpp
 #define LOG_LEVEL_DEBUG 0x0001 //调试信息
 #define LOG_LEVEL_INFO 0x0002 //一般信息
 #define LOG_LEVEL_ERROR 0x0004 //错误信息
 #define LOG_LEVEL_CRITICAL 0x0008 //致命信息
-```
+{% endhighlight %}
 日志文件默认是在 exe 所在路径下面，日志文件名和日志级别可以在全局资源定义（resource.xml）中定义，定义如下：
-```xml
+{% highlight xml linenos %}
 <!--系统配置-->
 <res type="cfg" name="logfile" value="demoui.log" />
 <res type="cfg" name="loglevel" value="1" />
-```
+{% endhighlight %}
 其中 logfile 表示日志文件的名字，是对应的 exe 文件的路径，loglevel 表示记录的日志的最低级别，日志级别有 4 种级别，分别是 1-调试级别、 2-一般级别、 4-错误级别、 8-致命级别。
 如果这里的 loglevel 定义的是 1，就表示调试和以上级别的日志都会记录。
 
@@ -392,23 +392,23 @@ DuiVision 中定义了任务的基类和几种派生类，基类是 IBaseTask �
 ##界面皮肤定义
 默认的 9 张背景图片是放在 exe 所在路径的 bkimg 子目录下，图片文件名分别是SKIN_PIC_0.png-SKIN_PIC_8.png，如果要更改默认的图片，只要在制作安装包时候替换这个目录中相应名字的图片就可以。
 皮肤选择窗口是通过皮肤按钮来打开的，只要窗口的某个控件定义的名字是皮肤按钮的名字，就自动具有皮肤按钮的功能，皮肤按钮的名字是 button.skin，例如下面这段对话框 xml中的定义，就自动会支持皮肤窗口的功能：
-```xml
+{% highlight xml linenos %}
 <imgbtn name="button.skin" pos="-140,0,-111,29" skin="IDB_BT_SKIN" tip="皮肤" show="1"/>
-```
+{% endhighlight %}
 通过皮肤窗口更改了背景皮肤之后，这个改动并不会保存下来，如果下次运行这个程序，就会又回到最初的状态（默认显示的是第一张背景图片），为了将选择的皮肤保存下来，需要在主程序中写一些代码来实现，例如将选择的皮肤信息保存在注册表中，具体实现方式可以参考 DuiVision 界面库 demo 程序中的 DuiHandler_main.cpp 的CDuiHandlerTest::ProcessSkinMsg 函数的实现。
 
 ##托盘图标
 DuiVision 界面库封装了 Windows 托盘图标的相关操作，可以创建托盘图标，并设置图标文件、托盘的 tip 信息，也可以处理托盘的单击、双击、右键菜单的事件。
 通过调用下面的函数可以进行托盘的初始化：
-```cpp
+{% endhighlight %}cpp
 DuiSystem::Instance()->InitTray();
-```
+{% endhighlight %}
 初始化一般放在主的事件处理类 OnInit 函数中，可以参考 demo 程序的代码。 设置托盘的图标文件盒 tip 信息可以调用 DuiSystem 的 SetTrayIcon、 SetTrayTip 函数。
 托盘的右键操作是打开右键菜单，右键菜单在 resource.xml 中通过 menu_tray 名字的资源项定义具体的菜单 xml 文件。
 托盘的左键双击默认动作时打开主窗口，也可以更改为自定义的处理方式，resource.xml 中下面的配置项用于定义托盘双击的动作，如果为 0 就表示执行默认的打开主窗口的动作，如果为 1，则会发送 MSG_TRAY_DBCLICK 消息，通过在事件处理类中响应这个消息，就可以处理双击事件。
-```cpp
+{% endhighlight %}cpp
 <res type="cfg" name="trayDbClickMsg" value="0" ></res>
-```
+{% endhighlight %}
 托盘左键的单击事件也会发送一个消息，消息 ID 为 MSG_TRAY_LBUTTONDOWN，通过在事件处理类中响应这个消息，就可以处理单击事件。 可以参考 Demo 程序单击和双击事件响应函数。
 
 ##界面插件介绍
@@ -595,9 +595,9 @@ CloseDlgPopup | 否 | 关闭弹出框
 控件名：无
 说明：菜单有两种显示的位置，一种是在窗口顶部某个按钮点击后可以下拉一个菜单，另一种是托盘图标的右键菜单。
 窗口中的菜单定义方式是 xml 文件中设置某个按钮的 action 属性，以 menu:开头，后面是菜单的 XML 文件名或 XML 定义名，例如下面这样定义：
-```xml
+{% highlight xml linenos %}
 <imgbtn name="button.menu" pos="-110,0,-77,29" skin="IDB_BT_MENU" tip="菜单" action="menu:mainmenu.xml"/>
-```
+{% endhighlight %}
 
 属性名 | 类型 | 说明
 ---- | ----
