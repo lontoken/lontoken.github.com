@@ -158,7 +158,7 @@ DuiVision 支持将所有的图片和 XML 资源文件放在一个 zip 格式的
 
 3. DuiVision 库的初始化以及主窗口的定义
 在主程序的 App 类 InitInstance()函数中添加 DuiVision 库的引用代码，示例代码如下：
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 // 初始化DuiVision界面库,可以指定语言,dwLangID为表示自动判断当前语言
 // 1116是应用程序ID，每个DUI应用程序应该使用不同的ID
 // ID主要用于进程间通信传递命令行时候区分应用
@@ -202,7 +202,7 @@ DuiSystem 构造函数第三个参数（资源文件名）的说明，资源文�
 ##事件处理类编写
 除了界面的描述之外，最主要的工作就是业务逻辑的处理，为了将业务逻辑和界面展示能够更好的分离，DuiVision 中定义了事件处理基类，所有的业务逻辑都应该写在派生的事件处理类中，并把事件处理对象注册到相应的对话框或控件上，这样对应的子控件有事件需要处理的时候，就会自动调用注册的事件处理对象的相应函数。事件处理类只要在处理函数中根据控件的 ID 或名字决定该做什么事情，写相应的处理代码就可以。时间处理类中同时提供了一些函数方便根据 ID 或名字获取到对应的控件对象，并对控件进行操作，例如改变控件文字、获取控件的某个状态等。
 事件处理基类是CDuiHandler，这个类的一些函数如下，提供了获取控件对象、设置控件的一些参数的函数，方便在事件处理类中对控件的操作：
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 void SetDuiObject(CDuiObject* pDuiObject);
 CControlBase* GetControl(UINT uControlID);
 CControlBase* GetControl(CString strControlName);
@@ -215,7 +215,7 @@ virtual void OnInit();
 virtual LRESULT OnDuiMessage(UINT uID, CString strName, UINT Msg, WPARAM wParam, LPARAM lParam);
 {% endhighlight %}
 下面这段代码是在派生的事件处理类的 OnDuiMessage 函数中判断如果点击了某个按钮，就修改一个进度条进度的代码：
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 if(strName == _T("button_normal_3"))
 {
     CDuiProgress* pControl = (CDuiProgress*)GetControl(_T("progress"));
@@ -243,7 +243,7 @@ if(strName == _T("button_normal_3"))
 | DUI_CONTROL_NAMEMSG_MESSAGE |控件名、消息、处理函数 | 根据控件名和消息，执行相应的处理函数 |
 
 实际定义的样例如下：
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 // 消息处理定义
 DUI_DECLARE_MESSAGE_BEGIN(CDuiHandlerMain)
 DUI_CONTROL_ID_MESSAGE(APP_IPC, OnDuiMsgInterprocess)
@@ -258,7 +258,7 @@ DUI_CONTROL_NAMEMSG_MESSAGE(L"listctrl_2", BUTTOM_DOWN, OnDuiMsgListCtrl2Click)
 DUI_DECLARE_MESSAGE_END()
 {% endhighlight %}
 在编写自己的 Handler 事件处理类时候可以参考样例，定义消息映射宏，每个需要处理的消息定义一行内容，定义出哪个控件的什么消息需要处理，由哪个函数处理，消息处理函数必须按照固定的参数格式来编写，消息处理函数的样例如下：
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 // 显示信息对话框消息处理
 LRESULT CDuiHandlerMain::OnDuiMsgMsgBoxButton1(UINT uID, CString strName, UINT Msg, WPARAM wParam, LPARAM lParam)
 {
@@ -345,7 +345,7 @@ DuiVision 的控件支持焦点状态，如果一个控件要支持焦点的话�
 设置了 tip 之后，当鼠标移动到此控件并停留一段时间，就会显示此控件的 tip 信息.
 
 ##动态创建界面控件
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 CDuiButton* pToolBtn = static_cast<CDuiButton*>(DuiSystem::CreateControlByName(L"button", m_pDlg->GetSafeHwnd(), m_pDuiObject));
 if(pToolBtn)
 {
@@ -365,11 +365,11 @@ if(pToolBtn)
 
 ##日志文件定义
 DuiVision 提供了日志文件的操作函数，在任何地方都可以通过如下代码调用日志函数来写日志：
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 DuiSystem::LogEvent(LOG_LEVEL_DEBUG, _T("CDuiHandlerTab3::OnDuiMessage:uID=%d, name=%s, msg=%d, wParam=%d, lParam=%d"), uID, strName, Msg, wParam, lParam);
 {% endhighlight %}
 此函数的第一个参数是日志的级别，后面的参数类似于 C 语言的 printf 的写法。级别定义如下：
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 #define LOG_LEVEL_DEBUG 0x0001 //调试信息
 #define LOG_LEVEL_INFO 0x0002 //一般信息
 #define LOG_LEVEL_ERROR 0x0004 //错误信息
@@ -400,13 +400,13 @@ DuiVision 中定义了任务的基类和几种派生类，基类是 IBaseTask �
 ##托盘图标
 DuiVision 界面库封装了 Windows 托盘图标的相关操作，可以创建托盘图标，并设置图标文件、托盘的 tip 信息，也可以处理托盘的单击、双击、右键菜单的事件。
 通过调用下面的函数可以进行托盘的初始化：
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 DuiSystem::Instance()->InitTray();
 {% endhighlight %}
 初始化一般放在主的事件处理类 OnInit 函数中，可以参考 demo 程序的代码。 设置托盘的图标文件盒 tip 信息可以调用 DuiSystem 的 SetTrayIcon、 SetTrayTip 函数。
 托盘的右键操作是打开右键菜单，右键菜单在 resource.xml 中通过 menu_tray 名字的资源项定义具体的菜单 xml 文件。
 托盘的左键双击默认动作时打开主窗口，也可以更改为自定义的处理方式，resource.xml 中下面的配置项用于定义托盘双击的动作，如果为 0 就表示执行默认的打开主窗口的动作，如果为 1，则会发送 MSG_TRAY_DBCLICK 消息，通过在事件处理类中响应这个消息，就可以处理双击事件。
-{% endhighlight %}cpp
+{% highlight Cpp linenos %}
 <res type="cfg" name="trayDbClickMsg" value="0" ></res>
 {% endhighlight %}
 托盘左键的单击事件也会发送一个消息，消息 ID 为 MSG_TRAY_LBUTTONDOWN，通过在事件处理类中响应这个消息，就可以处理单击事件。 可以参考 Demo 程序单击和双击事件响应函数。
