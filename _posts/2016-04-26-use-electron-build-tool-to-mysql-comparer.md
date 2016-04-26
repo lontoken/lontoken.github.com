@@ -9,6 +9,8 @@ tags: [Electron,Mysql,数据比对]
 工作中的项目使用MySql，在学习系统的数据数量和测试服务时，经常需要去比对一个表两个时间点的数据变化。  
 搜索相关工具不得，而之前又玩过Electron，一直没有找个机会练练手，因有此项目。  
 项目源码已开源，地址：http://git.oschina.net/lontoken/MysqlComparer
+<!--more-->
+
 
 ##项目的用户手册
 ###功能说明
