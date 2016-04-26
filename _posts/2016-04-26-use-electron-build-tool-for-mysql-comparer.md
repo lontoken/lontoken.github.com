@@ -5,6 +5,7 @@ tags: [Electron,Mysql,数据比对]
 ---
 
 #使用Electron创建Mysql数据比对工具
+
 ##项目由来
 工作中的项目使用MySql，在学习系统的数据数量和测试服务时，经常需要去比对一个表两个时间点的数据变化。
 搜索相关工具不得，而之前又玩过Electron，一直没有找个机会练练手，因有此项目。
@@ -13,6 +14,7 @@ tags: [Electron,Mysql,数据比对]
 
 
 ##项目的用户手册
+
 ###功能说明
 MySql数据库的数据对比工具。
 比较同一个表两个时间点的数据，并在界面上展示比较结果。
@@ -31,4 +33,4 @@ MySql数据库的数据对比工具。
 
 
 ###问题反馈
-若有问题，请联系 ganlong@hundsun.com / lontoken@gmail.com。
+若有问题，请联系 ganlong@hundsun.com or lontoken@gmail.com。
