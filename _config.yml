@@ -1,0 +1,28 @@
+encoding: utf-8
+markdown: rdiscount
+permalink: /:title.html
+url: http://lontoken.com
+lsi: true
+pygments: true
+safe: true
+auto: true
+
+# presonal config
+title: lontoken's Blog
+feed: lontoken.com
+comments: disqus
+
+author:
+  name: lontoken
+  nickname: lontoken
+  email: lontoken@gmail.com
+  gmail: lontoken@gmail.com
+  site: lontoken@gmail.com
+
+seo: 
+  keyword: 
+  description: 
+config:
+  js_dir:
+  img_dir:
+  css_dir:

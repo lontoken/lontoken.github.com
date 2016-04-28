@@ -1,0 +1,128 @@
+@media (max-width: 1200px){
+	.pricingtable > header > h3 {font-size:20px;}
+	.span3 > .pricingbody > ul > li {font-size: 14px;}
+	.span4 > .pricingbody > ul > li {font-size: 16px;}
+	.span3 > .pricingbody > .tableprice{padding: 30px 0px;}
+	.span3 > .pricingbody > .tableprice > span.pricingtable_price{font-size: 48px;line-height: 60px;}
+	.footerwidget{height:420px;}
+	ul.flickrhere li img{height: 60px;width: 60px;}
+	.sitecontainer{margin:0px;}
+	.fourcol figcaption h3{font-size:14px;}
+	.fourcol figcaption {font-size:12px;	}
+
+}
+
+@media (max-width: 980px){
+	.btn-navbar{display:block;}
+	#main_menu,
+	#main_menu_sticky{width:100%;}
+	.logo,
+	.topmenusection{ width:100% !important;}
+	.nav-pills > li{border-top:1px solid #2C2C2C;z-index:2000;}
+	.nav-pills > li:first-child{border-top:3px solid #444444;}
+	.nav-pills > li > a {margin: 10px 0px 0px 0px;}
+	.span3 > .introicons > .intro_icon > i{margin: -140px 0px 0px -35px !important;}
+	.page-header p{font-size:16px;line-height: 22px;}
+	.teamimagewrap{height:110px;}
+	.teamimage250{height:160px;}
+	.largervideo iframe {height: 460px;}
+	.span3 > .pricingbody{padding: 30px 20px 0px 20px;}
+	.span3 > .pricingbody > ul > li {font-size: 12px;}
+	.span4 > .pricingbody{padding: 30px 30px 0px 30px;}
+	.span4 > .pricingbody > .tableprice{padding: 30px 0px;}
+	.span4 > .pricingbody > ul > li {font-size: 14px;}
+	#map,#map > iframe{height:450px;}
+	.socialist{margin: 0px 0% 30px 3% !important;width: 43% !important;}
+	.footerwidget{height:auto;}
+	ul.flickrhere li img{height: 70px;width: 70px;}
+	h3.teamname{font-size:12px;}
+	.grid li{width:42%;}
+	.grid li.fourcol{width:31%;}
+}
+
+@media (max-width: 767px){
+	.container{padding-left:20px;padding-right:20px;}
+	.page-header h1 {font-size: 38px;padding: 38px 0px 28px 0px;}
+	ul.clientslist li {width: 42% !important;margin: 0px 2% 20px 2%;}
+	ul.clientslist li:hover{margin: -15px 2% 35px 2%;}
+	ul.option-set {padding: 0px 20px;}
+	.span3 > .introicons > .intro_icon > i{margin: -80px 0px 0px -35px !important;}
+	.teamimagewrap,.teamimage250{height:auto;}
+	.row-fluid > .span3.pricingtable,
+	.row-fluid > .span4.pricingtable{width:100%;}
+	.pricingbody{text-align:center;}
+	div.row-fluid > div.pricingtable,
+	div.row-fluid > div.pricingtable > header {
+	-moz-border-radius: 3px !important;
+	-ms-border-radius: 3px !important;
+	-o-border-radius: 3px !important;
+	-webkit-border-radius: 3px !important;
+	border-radius: 3px !important;
+	}
+	div.row-fluid > div.pricingtable{
+	overflow: hidden;
+	margin-bottom: 30px;
+	}
+	.row-fluid > .featured{
+	-webkit-transform: scale(1.0, 1.0);
+	-moz-transform: scale(1.0, 1.0);
+	-o-transform: scale(1.0, 1.0);
+	-ms-transform: scale(1.0, 1.0);
+	transform: scale(1.0, 1.0);
+	}
+	#map,#map > iframe{height:280px;}
+	h3.teamname{font-size:16px;}
+	.grid li{width:97%;}
+	.grid li.fourcol{width:48%;}
+}
+
+@media (max-width: 600px){
+	.span3 > .introicons > .intro_icon > i{margin: -80px 0px 0px -35px !important;}
+	.page-header p{display:none;}
+	#map{display:none;}
+}
+
+@media (max-width: 500px){
+	.page-header h1 {font-size: 28px;padding: 28px 0px 18px 0px;}
+	.fourfourclass > h1{font-size:180px;line-height:180px;}
+	p.lead{font-size:15px;}
+	ul, ol {margin: 0 0 10px 0px;}
+	ul.clientslist li {
+		width: 100% !important;
+		margin: 0px 0% 20px 0%;
+		-moz-border-radius: 0px;
+		-ms-border-radius: 0px;
+		-o-border-radius: 0px;
+		-webkit-border-radius: 0px;
+		border-radius: 0px;
+		padding: 0px 0%;
+	}
+	ul.clientslist li:hover {margin: -15px 0% 35px 0%;}
+	h4.title {font-size: 12px;}
+	.testimonialimage{display:none;}
+	.testimonialtext {width: 100%;padding: 10px 0%;}
+	.mejs-controls div.mejs-time-rail {max-width: 140px !important;}
+	.blogimage iframe {height: 200px;}
+	.largervideo iframe {height: 260px;}
+	.footersocial a,
+	.footersocial a:visited{	
+		font-size:30px;
+		margin:0px 4px;
+	}
+	.socialist{margin: 0px 0% 20px 0% !important;width: 100% !important;}
+	.grid li.fourcol,
+	.grid li.twocol{width:98%;}
+}
+
+@media (max-width: 400px){
+	.span3 > .introicons > .intro_icon > i{margin: -80px 0px 0px -35px !important;}
+	.blogdates{display:none;}
+	.bloginnerwrap{width:100%; padding:0px;}
+	.fourfourclass > h1 {font-size: 120px;line-height: 120px;}
+	p.lead {font-size: 12px;}
+	.blogicons{display:none;}
+}
+
+@media (max-width: 300px){
+	.span3 > .introicons > .intro_icon > i{margin: -110px 0px 0px -35px !important;}
+}
